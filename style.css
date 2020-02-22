@@ -1,4 +1,24 @@
-#getForm{
+body {
+    background-color: skyblue;
+    width: 100%;
+}
+.container{
+    width: 100%;
+    display: none;
+}
+.opaque{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 35%;
+    height: 100%;
+    overflow: auto;
+    z-index: 10;
+}
+
+.getForm {
     background-color: maroon;
     color: sandybrown;
     font-size: 20px;
@@ -8,13 +28,52 @@
     text-align: center;
     transition: .3s;
 }
-#getForm:hover{
+
+.getForm:hover {
     cursor: pointer;
     color: rgb(238, 194, 156);
     text-shadow: 1px 1px 2px skyblue;
     border-color: rgb(238, 194, 156);
     transition: .3s;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.34);
 }
-form > * {
+
+.hideForm {
+    display: none;
+}
+
+.showForm {
+    position: absolute;
     display: block;
+    background-color: rgb(221, 149, 101);
+    width: 300px;
+    padding: 2em;
+    border-radius: 5px;
+    top: 10em;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.34);
+    z-index: 1000;
+}
+
+form>* {
+    display: block;
+    padding-top: .5em;
+    margin: 1em auto;
+    text-align: center;
+}
+.inlineBtn > *{
+    display: inline-block;
+}
+.showForm>* {
+    border-bottom: solid 2px black;
+}
+
+input,
+input:focus,
+input:active {
+    background: none;
+    border: none;
 }
