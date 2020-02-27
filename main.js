@@ -22,34 +22,56 @@ function addBookToLibrary() {
 }
 
 form1.reset(); // resets form entries on Reload
-let render = function (template, node) {
-    const bookDiv = document.createElement("DIV");
-    const authorDiv = document.createElement("DIV");
-    const titleDiv = document.createElement("DIV");
-    const slideDiv = document.createElement("DIV");
-    const readDiv = document.createElement("DIV");
-    const pagesDiv = document.createElement("DIV");
-    bookDiv.classList.add("mainBook");
-    authorDiv.classList.add("authorBook");
-    titleDiv.classList.add("titleBook");
-    slideDiv.classList.add("slideBook");
-    readDiv.classList.add("readBook");
-    pagesDiv.classList.add("pagesBook");
-    authorDiv.innerHTML = template[0];
-    titleDiv.innerHTML = template[1];
-    pagesDiv.innerHTML = template[2];
-    readDiv.innerHTML = template[3];
-    slideDiv.appendChild(pagesDiv);
-    slideDiv.appendChild(readDiv);
-    bookDiv.appendChild(authorDiv);
-    bookDiv.appendChild(titleDiv);
-    bookDiv.appendChild(slideDiv);
-    node.appendChild(bookDiv);
+function updateShelf(){
+    let temp = document.querySelectorAll(".mainBook");
+    for(let j = 0; j < temp.length; j++){
+        temp[j].parentNode.removeChild(temp[j]);
+    }
+}
+function deleteBook(bookIndex){
+    let i = 0;
+    while(bookIndex != i) {console.log("i in deleteBook" + i); i++};
+    return myLibrary.splice(i, 1);    
+}
+let render = function (myLibrary, node) {
+    updateShelf();
+    for (let i = 0; i < myLibrary.length; i++){
+        const bookDiv = document.createElement("DIV");
+        const authorDiv = document.createElement("DIV");
+        const titleDiv = document.createElement("DIV");
+        const slideDiv = document.createElement("DIV");
+        const readDiv = document.createElement("DIV");
+        const pagesDiv = document.createElement("DIV");
+        const deleteBtn = document.createElement("BUTTON");
+        deleteBtn.innerHTML = "X";
+        deleteBtn.addEventListener("click", () =>{
+            let temp = i;
+            deleteBook(temp);
+            render(myLibrary, bookShelf);
+        });
+        bookDiv.classList.add("mainBook");
+        authorDiv.classList.add("authorBook");
+        titleDiv.classList.add("titleBook");
+        slideDiv.classList.add("slideBook");
+        readDiv.classList.add("readBook");
+        pagesDiv.classList.add("pagesBook");
 
-    
+        let template = Object.values(myLibrary[i]);
+        authorDiv.innerHTML = template[0];
+        titleDiv.innerHTML = template[1];
+        pagesDiv.innerHTML = template[2];
+        readDiv.innerHTML = template[3];
+
+        slideDiv.appendChild(pagesDiv);
+        slideDiv.appendChild(readDiv);
+        slideDiv.appendChild(deleteBtn);
+        bookDiv.appendChild(authorDiv);
+        bookDiv.appendChild(titleDiv);
+        bookDiv.appendChild(slideDiv);
+        node.appendChild(bookDiv);
+    }  
 };
 
-let key = 0;
 submitBtn.addEventListener("click", () => {
     author = document.querySelector("#author").value;
     title = document.querySelector("#title").value;
@@ -60,27 +82,22 @@ submitBtn.addEventListener("click", () => {
     }
     read ? read = "Read" : read = "Not read";
     addBookToLibrary();
-    form1.reset();
-
-    //Tests
-    console.log(Object.values(myLibrary[key]))  
-    render(Object.values(myLibrary[key]), bookShelf);
-
-    key++;
+    changeState();
+    render(myLibrary, bookShelf);
 });
 
 getForm.addEventListener("click", () => { 
-    form1.classList.toggle("showForm");
-    bodyElm.classList.toggle("opaque"); 
-    form1.reset();
+    changeState();
 });
 cancelBtn.addEventListener("click", () => {
-    form1.classList.toggle("showForm");
-    bodyElm.classList.toggle("opaque");
-    form1.reset();
+    changeState();
 });
 bodyElm.addEventListener("click", () => {
+    changeState();
+});
+
+function changeState(){
     form1.classList.toggle("showForm");
     bodyElm.classList.toggle("opaque");
     form1.reset();
-});
+}
