@@ -77,3 +77,43 @@ input:active {
     background: none;
     border: none;
 }
+
+.bookShelf{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+.mainBook{
+    margin: 5em;
+    height: 200px;
+    width: 150px;
+    border: solid 1px black;
+
+}
+.authorBook{
+    margin-top: 1em;
+    text-align: center;
+    padding: 2em 0;
+}
+.titleBook{
+    text-align: center;
+    padding-bottom: 4em;
+}
+.slideBook{
+    position: relative;
+    padding-top: 2em;
+    border: solid 1px black;
+    width: 150px;
+    text-align: center;
+     
+}
+.slideBook > div{
+    display: inline-block;
+    padding: 0 0.5em;
+}
+.pagesBook{
+    
+}
+.readBook{
+    
+}
