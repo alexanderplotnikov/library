@@ -30,8 +30,20 @@ function updateShelf(){
 }
 function deleteBook(bookIndex){
     let i = 0;
-    while(bookIndex != i) {console.log("i in deleteBook" + i); i++};
+    while(bookIndex != i) {i++};
     return myLibrary.splice(i, 1);    
+}
+function updateRead(bookIndex){
+    let i = 0;
+    while(bookIndex != i) {i++};
+
+    if(myLibrary[i]["read"] == "Read"){
+        myLibrary[i]["read"] = "Not read";
+    }
+    else{
+        myLibrary[i]["read"] = "Read";
+    }
+    return myLibrary;
 }
 let render = function (myLibrary, node) {
     updateShelf();
@@ -44,22 +56,29 @@ let render = function (myLibrary, node) {
         const pagesDiv = document.createElement("DIV");
         const deleteBtn = document.createElement("BUTTON");
         deleteBtn.innerHTML = "X";
+        deleteBtn.classList.add("deleteBtn");
         deleteBtn.addEventListener("click", () =>{
             let temp = i;
             deleteBook(temp);
             render(myLibrary, bookShelf);
         });
+        readDiv.addEventListener("click", () =>{
+            let temp = i;
+            updateRead(temp);
+            render(myLibrary, bookShelf);
+        });
+        
         bookDiv.classList.add("mainBook");
         authorDiv.classList.add("authorBook");
         titleDiv.classList.add("titleBook");
-        slideDiv.classList.add("slideBook");
+        slideDiv.classList.add("slideBookHidden");
         readDiv.classList.add("readBook");
         pagesDiv.classList.add("pagesBook");
-
+        
         let template = Object.values(myLibrary[i]);
         authorDiv.innerHTML = template[0];
         titleDiv.innerHTML = template[1];
-        pagesDiv.innerHTML = template[2];
+        pagesDiv.innerHTML = template[2] + "p";
         readDiv.innerHTML = template[3];
 
         slideDiv.appendChild(pagesDiv);
@@ -67,7 +86,17 @@ let render = function (myLibrary, node) {
         slideDiv.appendChild(deleteBtn);
         bookDiv.appendChild(authorDiv);
         bookDiv.appendChild(titleDiv);
+        
+        bookDiv.addEventListener("mouseenter", (e) =>{
+            console.log(e.target)
+            slideDiv.classList.toggle("slideBook");
+        });
+        bookDiv.addEventListener("mouseleave", (e) =>{
+            console.log(e.target)
+            slideDiv.classList.toggle("slideBook");
+        });
         bookDiv.appendChild(slideDiv);
+        
         node.appendChild(bookDiv);
     }  
 };
@@ -84,6 +113,8 @@ submitBtn.addEventListener("click", () => {
     addBookToLibrary();
     changeState();
     render(myLibrary, bookShelf);
+    
+    console.log(myLibrary)
 });
 
 getForm.addEventListener("click", () => { 
@@ -101,3 +132,4 @@ function changeState(){
     bodyElm.classList.toggle("opaque");
     form1.reset();
 }
+

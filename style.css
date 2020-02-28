@@ -2,6 +2,16 @@ body {
     background-color: skyblue;
     width: 100%;
 }
+body::-webkit-scrollbar {
+    display: none;
+  }
+.content{
+    
+    padding-top: 7em;
+    height: 100px;
+    background: rgb(135,206,237);
+    background: linear-gradient(0deg, rgba(135,206,237,1) 0%, rgba(98,174,209,1) 26%, rgba(135,206,237,1) 55%, rgba(178,206,235,1) 71%, rgba(48,145,187,1) 100%);
+}
 .container{
     width: 100%;
     display: none;
@@ -18,7 +28,8 @@ body {
     z-index: 10;
 }
 
-.getForm {
+.getForm { 
+    margin: 0 auto;
     background-color: maroon;
     color: sandybrown;
     font-size: 20px;
@@ -32,7 +43,7 @@ body {
 .getForm:hover {
     cursor: pointer;
     color: rgb(238, 194, 156);
-    text-shadow: 1px 1px 2px skyblue;
+    text-shadow: 1px 1px 2px #87ceeb;
     border-color: rgb(238, 194, 156);
     transition: .3s;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.34);
@@ -76,13 +87,21 @@ form > div > input {
     border: none;
 
 }
+.hidden{
+    display: none;
+}
 
 #noborder {
     border-bottom: none;
     text-align: center;
     margin: 0.8em;
 }
-
+.deleteBtn{
+    justify-self: center;
+    grid-column: 1 / span 5;
+    margin-bottom: 0.5em;
+    cursor: pointer;
+}
 input,
 input:focus,
 input:active {
@@ -91,16 +110,28 @@ input:active {
 }
 
 .bookShelf{
-    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    width: 50%;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 .mainBook{
+    display: grid;
     margin: 5em;
-    height: 200px;
+    height: 150px;
     width: 150px;
-    border: solid 1px black;
+    background-color: bisque;
+    color: rgb(129, 100, 21);
+    box-shadow: 0 -1px 5px 0 rgb(109, 106, 106);
+    transition: 0.5s;
 
+}
+.mainBook:hover{
+    height: 250px;
+    transition-delay: 0.5s;
+    transition: 1s;
 }
 .authorBook{
     margin-top: 1em;
@@ -111,21 +142,35 @@ input:active {
     text-align: center;
     padding-bottom: 4em;
 }
+.slideBookHidden{
+    display: none;    
+}
 .slideBook{
+    justify-self: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-content: stretch;
     position: relative;
-    padding-top: 2em;
-    border: solid 1px black;
-    width: 150px;
+    padding-top: 1.5em;
+    bottom: 25px;
+    width: 140px;
     text-align: center;
-     
-}
-.slideBook > div{
-    display: inline-block;
-    padding: 0 0.5em;
-}
-.pagesBook{
+    background-color: rgb(250, 245, 224);
+    box-shadow: inset 0 0 3px 0 black;
+    color: rgb(129, 100, 21);
+    transition: height 3s;
     
+}  
+.slideBook > div{
+    padding-bottom: 0.5em;
 }
 .readBook{
-    
+    grid-column: 3 / span 5;
+    cursor: pointer;
+    text-align: center;
+}
+.pagesBook{
+    grid-column: 1 / span 2;
+    justify-self: end;
+    text-align: end;
 }
